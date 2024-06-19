@@ -6,19 +6,39 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextCodigo"
+        android:id="@+id/etProducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce el código del producto" />
+    <EditText
+        android:id="@+id/etPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Introduce el código del producto" />
 
     <Button
-        android:id="@+id/buttonObtenerPrecio"
+        android:id="@+id/btSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Obtener Precio" />
+        android:text="@string/get" />
+    <Button
+        android:id="@+id/btAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add" />
+    <Button
+        android:id="@+id/btDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete" />
+    <Button
+        android:id="@+id/btUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/update" />
 
     <TextView
-        android:id="@+id/textViewPrecio"
+        android:id="@+id/tvSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"

@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("corcho", "Agrega un algo. se apreto el boton")
 
         db.collection("users").document("codigo").add(user)
+        //probar que el documento id es el documento del firebase
     }
     private fun getData() {
         Log.i("corcho", "CONSEGUIR. se apreto el boton")

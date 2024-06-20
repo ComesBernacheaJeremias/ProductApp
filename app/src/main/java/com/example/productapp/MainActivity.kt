@@ -1,5 +1,6 @@
 package com.example.productapp
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -27,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
 
-
-
         initUI()
 
 
@@ -51,40 +50,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addData() {
+        val etCodigo = binding.etCodigo
+        val etPrecio = binding.etPrecio
         val etProducto = binding.etProducto
-        val etCodigo = binding.etPrecio
+        val etDescription = binding.etDescription
 
         val user = hashMapOf(
-            "nombre" to etProducto.text.toString(),
-            "codigo" to etCodigo.text.toString(),
-            "mas" to "La descripcion del producto"
+            "Codigo" to etCodigo.text.toString(),
+            "Producto" to etProducto.text.toString(),
+            "Precio" to etPrecio.text.toString(),
+            "Descripcion" to etDescription.text.toString()
+
         )
 
-        //"last" to "Lovelace",
-        // "born" to 1815
 
         Log.i("corcho", "Agrega un algo. se apreto el boton")
-        db.collection("cities").document("${etProducto.text}")
+        db.collection("cities").document("${etCodigo.text}")
             .set(user)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
-        // db.collection("users").document("codigo").add(user)
-        //probar que el documento id es el documento del firebase
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getData() {
-        val etProducto = binding.etProducto
-        val docRef = db.collection("cities").document("${etProducto.text}")
+        val etCodigo = binding.etCodigo
+        val docRef = db.collection("cities").document("${etCodigo.text}")
         docRef.get().addOnSuccessListener { document ->
+            if (document != null && document.data != null){
             val data = document.data
             val formattedData = StringBuilder()
             for ((key, value) in data!!) {
                 formattedData.append("$key: $value\n")
             }
             Log.i("corchometro", "DocumentSnapshot data: ${document.data}")
-            binding.tvSearch.text = formattedData.toString()
+            binding.tvSearch.text = formattedData.toString()}else{binding.tvSearch.text = "No data found"}
 
+        }.addOnFailureListener { exception  ->
+            Log.w(TAG, "Error deleting document", exception)
+            binding.tvSearch.text = "No se encuentra el codigo"
         }
     }
 
@@ -107,9 +111,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteData(documentId: String) {
-        val etProducto = binding.etProducto
+        val etCodigo = binding.etCodigo
         Log.i("corcho", "AELIMINAR. se apreto el boton")
-        db.collection("cities").document("${etProducto.text}")
+        db.collection("cities").document("${etCodigo.text}")
             .delete()
             .addOnSuccessListener {
                 Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")

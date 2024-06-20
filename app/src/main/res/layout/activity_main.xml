@@ -6,15 +6,25 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/etProducto"
+        android:id="@+id/etCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Introduce el código del producto" />
     <EditText
+        android:id="@+id/etProducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce el nombre del producto" />
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce la descripcion del producto" />
+    <EditText
         android:id="@+id/etPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Introduce el código del producto" />
+        android:hint="Introduce el precio del producto" />
 
     <Button
         android:id="@+id/btSearch"

@@ -6,12 +6,17 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
+import com.google.firebase.firestore.FieldValue.delete
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.toObject
+import java.nio.file.Files.delete
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +25,15 @@ class MainActivity : AppCompatActivity() {
 
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
+
+
+
+
         initUI()
 
+
     }
+
 
     private fun initUI() {
         binding.btAdd.setOnClickListener(View.OnClickListener {
@@ -41,37 +52,45 @@ class MainActivity : AppCompatActivity() {
 
     private fun addData() {
         val etProducto = binding.etProducto
-        val etPrecio = binding.etPrecio
+        val etCodigo = binding.etPrecio
+
         val user = hashMapOf(
             "nombre" to etProducto.text.toString(),
-            "codigo" to etPrecio.text.toString(),
+            "codigo" to etCodigo.text.toString(),
             "mas" to "La descripcion del producto"
-            //"last" to "Lovelace",
-           // "born" to 1815
         )
-        Log.i("corcho", "Agrega un algo. se apreto el boton")
 
-        db.collection("users").document("codigo").add(user)
+        //"last" to "Lovelace",
+        // "born" to 1815
+
+        Log.i("corcho", "Agrega un algo. se apreto el boton")
+        db.collection("cities").document("${etProducto.text}")
+            .set(user)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+        // db.collection("users").document("codigo").add(user)
         //probar que el documento id es el documento del firebase
     }
+
     private fun getData() {
-        Log.i("corcho", "CONSEGUIR. se apreto el boton")
-        val stringBuilder = StringBuilder()
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val nombre = document.getString("nombre")
-                    stringBuilder.append("$nombre\n")
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    binding.tvSearch.text = stringBuilder.toString()
-                }
+        val etProducto = binding.etProducto
+        val docRef = db.collection("cities").document("${etProducto.text}")
+        docRef.get().addOnSuccessListener { document ->
+            val data = document.data
+            val formattedData = StringBuilder()
+            for ((key, value) in data!!) {
+                formattedData.append("$key: $value\n")
             }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
+            Log.i("corchometro", "DocumentSnapshot data: ${document.data}")
+            binding.tvSearch.text = formattedData.toString()
+
+        }
     }
+
+
     private fun updateData(documentId: String) {
+        var producto = binding.etProducto
         Log.i("corcho", "ACTUALIZAR se apreto el boton")
         val userUpdates = hashMapOf<String, Any>(
             "born" to 1816
@@ -86,15 +105,20 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG, "Error updating document", e)
             }
     }
+
     private fun deleteData(documentId: String) {
+        val etProducto = binding.etProducto
         Log.i("corcho", "AELIMINAR. se apreto el boton")
-        db.collection("users").document(documentId)
+        db.collection("cities").document("${etProducto.text}")
             .delete()
             .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
+
+
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error deleting document", e)
             }
     }
 }
+

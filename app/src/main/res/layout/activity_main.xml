@@ -46,6 +46,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/update" />
+    <Button
+        android:id="@+id/btTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TODOS LOS PRODUCTOS" />
 
     <TextView
         android:id="@+id/tvSearch"

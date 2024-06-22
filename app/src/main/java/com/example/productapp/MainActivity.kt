@@ -50,6 +50,32 @@ class MainActivity : AppCompatActivity() {
         binding.btDelete.setOnClickListener(View.OnClickListener {
             deleteData("prueba")
         })
+        binding.btTodos.setOnClickListener(View.OnClickListener { mostrarTodos() })
+    }
+
+    private fun mostrarTodos() {
+        val tvResults = binding.tvSearch
+        val docRef = db.collection("cities")
+        docRef.get().addOnSuccessListener { result ->
+            val stringBuilder = StringBuilder()
+            for (document in result) {
+                Log.d(TAG, "${document.id} => ${document.data}")
+                stringBuilder.append("ID: ${document.id} => ${document.data}\n")
+                tvResults.text = stringBuilder.toString()
+
+
+                Log.i("corchometro", "esto aparece en data ${document.id} => ${document.data}")
+
+                Log.i("corchometro", "esto en RESULT ${tvResults}")
+            }
+
+
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "Error getting documents: ", exception)
+            // Mostrar el mensaje de error en el TextView
+            tvResults.text = "Error al obtener documentos"
+        }
+
     }
 
     private fun addData() {
@@ -145,14 +171,15 @@ class MainActivity : AppCompatActivity() {
                                     "quiero que muestre ${update.text} que es el precio y ${nuevoPrecio}"
                                 )
                                 binding.tvSearch.text = "Precios Actualizados"
-                            } .addOnFailureListener { e ->
+                            }.addOnFailureListener { e ->
                                 Log.w(TAG, "Error updating document", e)
-                                binding.tvSearch.text = "Error al actualizar el precio"}
+                                binding.tvSearch.text = "Error al actualizar el precio"
+                            }
 
-                    }else {
+                    } else {
                         binding.tvSearch.text = "Precio actual no encontrado"
                     }
-                }else {
+                } else {
                     binding.tvSearch.text = "No data found"
                 }
             }.addOnFailureListener { exception ->

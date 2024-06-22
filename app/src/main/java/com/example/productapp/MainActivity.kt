@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
             getData()
         })
         binding.btUpdate.setOnClickListener(View.OnClickListener {
-            updateData("prueba")
+            updateData()
         })
         binding.btDelete.setOnClickListener(View.OnClickListener {
-            deleteData("prueba")
+            deleteData()
         })
         binding.btTodos.setOnClickListener(View.OnClickListener { mostrarTodos() })
     }
@@ -59,24 +59,26 @@ class MainActivity : AppCompatActivity() {
         docRef.get().addOnSuccessListener { result ->
             val stringBuilder = StringBuilder()
             for (document in result) {
-                Log.d(TAG, "${document.id} => ${document.data}")
-                stringBuilder.append("ID: ${document.id} => ${document.data}\n")
-                tvResults.text = stringBuilder.toString()
+                stringBuilder.append("ID: ${document.id}\n")
+                for ((key, value) in document.data) {
+                    stringBuilder.append("\t$key: $value\n")
+                }
+                stringBuilder.append("\n") // Añadir una línea en blanco entre documentos
 
-
-                Log.i("corchometro", "esto aparece en data ${document.id} => ${document.data}")
-
-                Log.i("corchometro", "esto en RESULT ${tvResults}")
             }
 
 
-        }.addOnFailureListener { exception ->
-            Log.d(TAG, "Error getting documents: ", exception)
-            // Mostrar el mensaje de error en el TextView
-            tvResults.text = "Error al obtener documentos"
+            tvResults.text = stringBuilder.toString()
+
         }
 
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+                // Mostrar el mensaje de error en el TextView
+                tvResults.text = "Error al obtener documentos"
+            }
     }
+
 
     private fun addData() {
         val etCodigo = binding.etCodigo
@@ -126,20 +128,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun updateData(documentId: String) {
+    private fun updateData() {
         val etCodigo = binding.etCodigo
         val update = binding.etPrecio
-        update.inputType = InputType.TYPE_CLASS_NUMBER
         val precioUpdate = update.text.toString().toDoubleOrNull()
-        val documentRef = db.collection("cities").document("${etCodigo.text}")
+        val documentRef = db.collection("cities")
 
         Log.i("corcho", "ACTUALIZAR se apreto el boton")
 
         //control de errores
-        if (etCodigo.text.isNullOrEmpty()) {
-            binding.tvSearch.text = "Por favor ingrese un código válido"
-            return
-        }
+
         if (update.text.isNullOrEmpty()) {
             binding.tvSearch.text = "Por favor ingrese un porcentaje válido"
             return
@@ -150,58 +148,45 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
         documentRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
+            .addOnSuccessListener { result ->
+
+                for (document in result) {
                     val precioActual = document.getDouble("Precio")
+                    val documentRef = document.reference
                     if (precioActual != null) {
-                        // Calcular el nuevo precio sumando el porcentaje
                         val incremento = precioActual * (precioUpdate / 100)
                         val nuevoPrecio = precioActual + incremento
-
-                        // Actualizar el campo "Precio" con el nuevo valor
                         documentRef.update("Precio", nuevoPrecio)
-
-                            .addOnSuccessListener {
-                                Log.d(TAG, "DocumentSnapshot successfully updated!")
-                                Log.i(
-                                    "corchometro",
-                                    "quiero que muestre ${update.text} que es el precio y ${nuevoPrecio}"
-                                )
-                                binding.tvSearch.text = "Precios Actualizados"
-                            }.addOnFailureListener { e ->
-                                Log.w(TAG, "Error updating document", e)
-                                binding.tvSearch.text = "Error al actualizar el precio"
-                            }
-
-                    } else {
-                        binding.tvSearch.text = "Precio actual no encontrado"
+                        Log.i(
+                            "corchometro",
+                            "quiero que muestre ${update.text} que es el precio y ${nuevoPrecio}"
+                        )
                     }
-                } else {
-                    binding.tvSearch.text = "No data found"
                 }
-            }.addOnFailureListener { exception ->
-                Log.w(TAG, "Error updating document", exception)
-                binding.tvSearch.text = "Error al obtener el documento"
+            }.addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully updated!")
+                binding.tvSearch.text = "Precios Actualizados"
+            }.addOnFailureListener { e ->
+                Log.w(TAG, "Error updating document", e)
+                binding.tvSearch.text = "Error al actualizar el precio"
             }
     }
 
 
-    private fun deleteData(documentId: String) {
-        val etCodigo = binding.etCodigo
-        Log.i("corcho", "AELIMINAR. se apreto el boton")
-        db.collection("cities").document("${etCodigo.text}")
-            .delete()
-            .addOnSuccessListener {
-                Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
+private fun deleteData() {
+    val etCodigo = binding.etCodigo
+    Log.i("corcho", "AELIMINAR. se apreto el boton")
+    db.collection("cities").document("${etCodigo.text}")
+        .delete()
+        .addOnSuccessListener {
+            Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
 
 
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error deleting document", e)
-            }
-    }
+        }
+        .addOnFailureListener { e ->
+            Log.w(TAG, "Error deleting document", e)
+        }
+}
 }
 

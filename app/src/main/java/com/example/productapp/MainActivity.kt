@@ -40,15 +40,22 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         binding.btAdd.setOnClickListener(View.OnClickListener {
             addData()
+            binding.etDescription.text.clear()
+            binding.etCodigo.text.clear()
+            binding.etPrecio.text.clear()
+            binding.etProducto.text.clear()
         })
         binding.btSearch.setOnClickListener(View.OnClickListener {
             getData()
+
         })
         binding.btUpdate.setOnClickListener(View.OnClickListener {
             updateData()
+            binding.etCodigo.text.clear()
         })
         binding.btDelete.setOnClickListener(View.OnClickListener {
             deleteData()
+            binding.etCodigo.text.clear()
         })
         binding.btTodos.setOnClickListener(View.OnClickListener { mostrarTodos() })
     }
@@ -87,6 +94,12 @@ class MainActivity : AppCompatActivity() {
         val etProducto = binding.etProducto
         val etDescription = binding.etDescription
 
+
+        if (etCodigo.text.isNullOrEmpty() || etPrecio.text.isNullOrEmpty() || etDescription.text.isNullOrEmpty() || etProducto.text.isNullOrEmpty()) {
+            binding.tvSearch.text = "Por favor, complete todos los datos."
+            return
+        }
+
         val user = hashMapOf(
             "Codigo" to etCodigo.text.toString(),
             "Producto" to etProducto.text.toString(),
@@ -99,14 +112,25 @@ class MainActivity : AppCompatActivity() {
         Log.i("corcho", "Agrega un algo. se apreto el boton")
         db.collection("cities").document("${etCodigo.text}")
             .set(user)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+                binding.tvSearch.text = "Se agrego el producto correctamente"
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                binding.tvSearch.text = "No se pudo agregar el producto. Verifique los datos"
+            }
+
 
     }
 
     @SuppressLint("SetTextI18n")
     private fun getData() {
         val etCodigo = binding.etCodigo
+        if (etCodigo.text.isNullOrEmpty()) {
+            binding.tvSearch.text = "Por favor, ingrese un Codigo."
+            return
+        }
         val docRef = db.collection("cities").document("${etCodigo.text}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
@@ -118,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("corchometro", "DocumentSnapshot data: ${document.data}")
                 binding.tvSearch.text = formattedData.toString()
             } else {
-                binding.tvSearch.text = "No data found"
+                binding.tvSearch.text = "Codigo NO encontrado. Pruebe con otro."
             }
 
         }.addOnFailureListener { exception ->
@@ -174,19 +198,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-private fun deleteData() {
-    val etCodigo = binding.etCodigo
-    Log.i("corcho", "AELIMINAR. se apreto el boton")
-    db.collection("cities").document("${etCodigo.text}")
-        .delete()
-        .addOnSuccessListener {
-            Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
+    @SuppressLint("SetTextI18n")
+    private fun deleteData() {
+        val etCodigo = binding.etCodigo
+        if (etCodigo.text.isNullOrEmpty()) {
+            binding.tvSearch.text = "Por favor, ingrese un Codigo"
+            return
+        }
+        db.collection("cities").document("${etCodigo.text}")
+            .delete()
+            .addOnSuccessListener {
+                Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
+                binding.tvSearch.text = "Se ELIMINO el producto correctamente"
 
 
-        }
-        .addOnFailureListener { e ->
-            Log.w(TAG, "Error deleting document", e)
-        }
-}
+            }
+            .addOnFailureListener { exception ->
+                Log.i("corchometro", "No pude borrar")
+                binding.tvSearch.text = "No se pudo eliminar el producto. Verifique los datos"
+            }
+    }
 }
 

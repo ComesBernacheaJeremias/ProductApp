@@ -1,20 +1,17 @@
 package com.example.productapp
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FieldValue.delete
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.dataObjects
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.toObject
-import java.nio.file.Files.delete
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,10 +37,6 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         binding.btAdd.setOnClickListener(View.OnClickListener {
             addData()
-            binding.etDescription.text.clear()
-            binding.etCodigo.text.clear()
-            binding.etPrecio.text.clear()
-            binding.etProducto.text.clear()
         })
         binding.btSearch.setOnClickListener(View.OnClickListener {
             getData()
@@ -51,11 +44,11 @@ class MainActivity : AppCompatActivity() {
         })
         binding.btUpdate.setOnClickListener(View.OnClickListener {
             updateData()
-            binding.etCodigo.text.clear()
+
         })
         binding.btDelete.setOnClickListener(View.OnClickListener {
             deleteData()
-            binding.etCodigo.text.clear()
+
         })
         binding.btTodos.setOnClickListener(View.OnClickListener { mostrarTodos() })
     }
@@ -107,31 +100,40 @@ class MainActivity : AppCompatActivity() {
             "Descripcion" to etDescription.text.toString()
 
         )
+        val docRef = db.collection("cities").document("${etCodigo.text}")
+        docRef.get().addOnSuccessListener { document ->
+            if (document != null && document.data != null) {
+                binding.tvSearch.text = "Codigo ya registrado. Pruebe con otro."
+            } else {
 
-
-        Log.i("corcho", "Agrega un algo. se apreto el boton")
-        db.collection("cities").document("${etCodigo.text}")
-            .set(user)
-            .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully written!")
-                binding.tvSearch.text = "Se agrego el producto correctamente"
+                Log.i("corcho", "Agrega un algo. se apreto el boton")
+                docRef.set(user)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "DocumentSnapshot successfully written!")
+                        binding.etDescription.text.clear()
+                        binding.etCodigo.text.clear()
+                        binding.etPrecio.text.clear()
+                        binding.etProducto.text.clear()
+                        binding.tvSearch.text = "Se agrego el producto correctamente"
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error writing document", e)
+                        binding.tvSearch.text =
+                            "No se pudo agregar el producto. Verifique los datos"
+                    }
             }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error writing document", e)
-                binding.tvSearch.text = "No se pudo agregar el producto. Verifique los datos"
-            }
-
-
+        }
     }
+
 
     @SuppressLint("SetTextI18n")
     private fun getData() {
-        val etCodigo = binding.etCodigo
-        if (etCodigo.text.isNullOrEmpty()) {
+        val etCodigo = binding.etCodigo.text
+        if (etCodigo.isNullOrEmpty()) {
             binding.tvSearch.text = "Por favor, ingrese un Codigo."
             return
         }
-        val docRef = db.collection("cities").document("${etCodigo.text}")
+        val docRef = db.collection("cities").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
                 val data = document.data
@@ -140,6 +142,8 @@ class MainActivity : AppCompatActivity() {
                     formattedData.append("$key: $value\n")
                 }
                 Log.i("corchometro", "DocumentSnapshot data: ${document.data}")
+
+                showData(formattedData.toString(), etCodigo.toString())
                 binding.tvSearch.text = formattedData.toString()
             } else {
                 binding.tvSearch.text = "Codigo NO encontrado. Pruebe con otro."
@@ -149,6 +153,20 @@ class MainActivity : AppCompatActivity() {
             Log.w(TAG, "Error deleting document", exception)
             binding.tvSearch.text = "No se encuentra el codigo"
         }
+    }
+
+    private fun showData(formattedData: String, etCodigo: String) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_add)
+        val tvResolt:TextView = dialog.findViewById(R.id.tvResolt)
+        val tvResoltTitle:TextView = dialog.findViewById(R.id.tvResoltTitle)
+        val btnBack: Button = dialog.findViewById(R.id.btnBack)
+        tvResolt.text = formattedData
+        tvResoltTitle.text = etCodigo
+
+        dialog.show()
+        btnBack.setOnClickListener{dialog.hide()}
+
     }
 
 
@@ -191,6 +209,7 @@ class MainActivity : AppCompatActivity() {
             }.addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully updated!")
                 binding.tvSearch.text = "Precios Actualizados"
+                binding.etCodigo.text.clear()
             }.addOnFailureListener { e ->
                 Log.w(TAG, "Error updating document", e)
                 binding.tvSearch.text = "Error al actualizar el precio"
@@ -205,16 +224,21 @@ class MainActivity : AppCompatActivity() {
             binding.tvSearch.text = "Por favor, ingrese un Codigo"
             return
         }
-        db.collection("cities").document("${etCodigo.text}")
-            .delete()
-            .addOnSuccessListener {
+        val docRef = db.collection("cities").document("${etCodigo.text}")
+        docRef.get().addOnSuccessListener { document ->
+            if (document != null && document.data != null) {
+                docRef.delete()
                 Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
                 binding.tvSearch.text = "Se ELIMINO el producto correctamente"
+                binding.etCodigo.text.clear()
 
 
+            }else{
+                binding.tvSearch.text = "No se encontro el codigo."
             }
+        }
             .addOnFailureListener { exception ->
-                Log.i("corchometro", "No pude borrar")
+                Log.i("corchometro", "No p99ude borrar")
                 binding.tvSearch.text = "No se pudo eliminar el producto. Verifique los datos"
             }
     }

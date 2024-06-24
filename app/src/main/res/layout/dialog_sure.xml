@@ -7,31 +7,29 @@
     android:padding="16dp"
     >
     <TextView
-        android:id="@+id/tvResoltTitle"
+        android:id="@+id/tvSureText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        android:hint="asdasdada"
+        android:hint="Estas Seguro de eliminar??"
         android:textSize="25dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white">
 
     </TextView>
-    <TextView
-        android:id="@+id/tvResolt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:hint="asdasdada"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_margin="4dp">
 
-    </TextView>
 
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/btnYes"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:backgroundTint="#444444"
+        android:text="VOLVER"
+        android:layout_marginTop="4dp">
+
+    </Button>
+    <Button
+        android:id="@+id/btnNo"
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:backgroundTint="#444444"

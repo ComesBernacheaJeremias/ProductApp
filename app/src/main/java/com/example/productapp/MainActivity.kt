@@ -59,9 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mostrarTodos() {
-
-        val tvResults = binding.tvSearch
-        val docRef = db.collection("cities")
+        val docRef = db.collection("productos")
         docRef.get().addOnSuccessListener { result ->
             val stringBuilder = StringBuilder()
             for (document in result) {
@@ -89,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     private fun addData() {
         val etCodigo = binding.etCodigo
         val etPrecio = binding.etPrecio
-        etPrecio.inputType = InputType.TYPE_CLASS_NUMBER
+       // etPrecio.inputType = InputType.TYPE_CLASS_NUMBER
         val etProducto = binding.etProducto
         val etDescription = binding.etDescription
 

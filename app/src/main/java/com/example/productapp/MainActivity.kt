@@ -5,11 +5,13 @@ import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }.addOnFailureListener { exception ->
             Log.d(TAG, "Error getting documents: ", exception)
             // Mostrar el mensaje de error en el TextView
-            tvResults.text = "Error al obtener documentos"
+            Toast.makeText(applicationContext, "Error al obtener documentos", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -93,37 +95,42 @@ class MainActivity : AppCompatActivity() {
 
 
         if (etCodigo.text.isNullOrEmpty() || etPrecio.text.isNullOrEmpty() || etDescription.text.isNullOrEmpty() || etProducto.text.isNullOrEmpty()) {
-            binding.tvSearch.text = "Por favor, complete todos los datos."
+            Toast.makeText(applicationContext, "Complete todos los datos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val user = hashMapOf(
+        val Productos = hashMapOf(
             "Codigo" to etCodigo.text.toString(),
             "Producto" to etProducto.text.toString(),
             "Precio" to etPrecio.text.toString().toDouble(),
             "Descripcion" to etDescription.text.toString()
 
         )
-        val docRef = db.collection("cities").document("${etCodigo.text}")
+        val docRef = db.collection("productos").document("${etCodigo.text}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
-                binding.tvSearch.text = "Codigo ya registrado. Pruebe con otro."
+                //binding.tvSearch.text =
+                Toast.makeText(
+                    applicationContext,
+                    "Codigo ya registrado. Pruebe con otro",
+                    Toast.LENGTH_SHORT
+                ).show()
+
             } else {
 
                 Log.i("corcho", "Agrega un algo. se apreto el boton")
-                docRef.set(user)
+                docRef.set(Productos)
                     .addOnSuccessListener {
                         Log.d(TAG, "DocumentSnapshot successfully written!")
                         binding.etDescription.text.clear()
                         binding.etCodigo.text.clear()
                         binding.etPrecio.text.clear()
                         binding.etProducto.text.clear()
-                        binding.tvSearch.text = "Se agrego el producto correctamente"
+                        Toast.makeText(applicationContext, "Se agrego el producto correctamente", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error writing document", e)
-                        binding.tvSearch.text =
-                            "No se pudo agregar el producto. Verifique los datos"
+                        Toast.makeText(applicationContext, "No se pudo agregar el producto. Verifique los datos", Toast.LENGTH_SHORT).show()
                     }
             }
         }
@@ -134,10 +141,11 @@ class MainActivity : AppCompatActivity() {
     private fun getData() {
         val etCodigo = binding.etCodigo.text
         if (etCodigo.isNullOrEmpty()) {
-            binding.tvSearch.text = "Por favor, ingrese un Codigo."
+            Toast.makeText(applicationContext, "Por favor, ingrese un Codigo", Toast.LENGTH_SHORT)
+                .show()
             return
         }
-        val docRef = db.collection("cities").document("${etCodigo}")
+        val docRef = db.collection("productos").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
                 val data = document.data
@@ -149,12 +157,17 @@ class MainActivity : AppCompatActivity() {
 
                 showData(formattedData.toString(), etCodigo.toString())
             } else {
-                binding.tvSearch.text = "Codigo NO encontrado. Pruebe con otro."
+                Toast.makeText(
+                    applicationContext,
+                    "Codigo NO encontrado. Pruebe con otro",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         }.addOnFailureListener { exception ->
             Log.w(TAG, "Error deleting document", exception)
-            binding.tvSearch.text = "No se encuentra el codigo"
+            Toast.makeText(applicationContext, "No se encuentra el codigo", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -176,18 +189,20 @@ class MainActivity : AppCompatActivity() {
     private fun updateData() {
         val update = binding.etPrecio
         val precioUpdate = update.text.toString().toDoubleOrNull()
-        val documentRef = db.collection("cities")
+        val documentRef = db.collection("productos")
 
         Log.i("corcho", "ACTUALIZAR se apreto el boton")
 
         //control de errores
 
         if (update.text.isNullOrEmpty()) {
-            binding.tvSearch.text = "Por favor ingrese un porcentaje válido"
+            Toast.makeText(applicationContext, "Ingrese un porcentaje valido", Toast.LENGTH_SHORT)
+                .show()
             return
         }
         if (precioUpdate == null) {
-            binding.tvSearch.text = "Por favor ingrese un porcentaje válido"
+            Toast.makeText(applicationContext, "Ingrese un porcentaje valido", Toast.LENGTH_SHORT)
+                .show()
             return
         }
         showUpdate() { eleccion ->
@@ -207,15 +222,26 @@ class MainActivity : AppCompatActivity() {
                         }
                     }.addOnSuccessListener {
                         Log.d(TAG, "DocumentSnapshot successfully updated!")
-                        binding.tvSearch.text = "Precios Actualizados"
+                        Toast.makeText(
+                            applicationContext,
+                            "PRECIOS ACTUALIZADOS",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         binding.etPrecio.text.clear()
                     }.addOnFailureListener { e ->
                         Log.w(TAG, "Error updating document", e)
-                        binding.tvSearch.text = "Error al actualizar el precio"
+                        Toast.makeText(
+                            applicationContext,
+                            "Error al actualizar el precio",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             } else {
-                binding.tvSearch.text = "No se actualizaron los precios"
-
+                Toast.makeText(
+                    applicationContext,
+                    "NO se actualizaron los precios",
+                    Toast.LENGTH_SHORT
+                ).show()
 
 
             }
@@ -247,10 +273,10 @@ class MainActivity : AppCompatActivity() {
     private fun deleteData() {
         val etCodigo = binding.etCodigo.text
         if (etCodigo.isNullOrEmpty()) {
-            binding.tvSearch.text = "Por favor, ingrese un Codigo"
+            Toast.makeText(applicationContext, "Ingrese un codigo", Toast.LENGTH_SHORT).show()
             return
         }
-        val docRef = db.collection("cities").document("${etCodigo}")
+        val docRef = db.collection("productos").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
 
@@ -259,23 +285,36 @@ class MainActivity : AppCompatActivity() {
                 showDelete(etCodigo.toString()) { eleccion ->
                     if (eleccion) {
                         docRef.delete()
-                        binding.tvSearch.text = "Se ELIMINO el producto correctamente"
+                        Toast.makeText(
+                            applicationContext,
+                            "se ELIMINO el producto correctamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         binding.etCodigo.text.clear()
 
                     } else {
-                        binding.tvSearch.text = "No se elimino el producto"
+                        Toast.makeText(
+                            applicationContext,
+                            "No se elimino el producto",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }
                 }
 
 
             } else {
-                binding.tvSearch.text = "No se encontro el codigo."
+                Toast.makeText(applicationContext, "No se encontro el producto", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
             .addOnFailureListener { exception ->
                 Log.i("corchometro", "No pude borrar")
-                binding.tvSearch.text = "No se pudo eliminar el producto. Verifique los datos"
+                Toast.makeText(
+                    applicationContext,
+                    "No se pudo eliminar el producto. Verifique los datos",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 

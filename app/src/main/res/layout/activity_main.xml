@@ -16,6 +16,7 @@
         android:id="@+id/etCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="@string/introducir_codigo" />
     <TextView
         android:layout_width="wrap_content"

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:background="#333333"
+    android:background="@color/secundario"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -20,7 +20,7 @@
     </TextView>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/white"/>
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:layout_marginTop="4dp"
-        android:backgroundTint="#444444"
+        android:backgroundTint="@color/primario"
         android:text="VOLVER">
 
     </Button>

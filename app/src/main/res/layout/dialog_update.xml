@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:background="#333333"
+    android:background="@color/secundario"
     android:orientation="vertical"
     android:padding="16dp">
+
 
 
     <TextView
         android:id="@+id/tvUpdateTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:hint="¿Actualizar?"
-        android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="25dp">
+        android:textSize="25dp"
+        android:gravity="center">
 
     </TextView>
 
@@ -46,7 +46,7 @@
             android:layout_height="38dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:backgroundTint="#444444"
+            android:backgroundTint="@color/primario"
             android:text="VOLVER">
 
         </Button>

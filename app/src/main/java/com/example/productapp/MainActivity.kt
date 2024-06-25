@@ -3,6 +3,7 @@ package com.example.productapp
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -11,6 +12,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.productapp.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
+
+
 
 
         initUI()
@@ -51,11 +56,15 @@ class MainActivity : AppCompatActivity() {
             deleteData()
 
         })
-        binding.btTodos.setOnClickListener(View.OnClickListener { mostrarTodos() })
+        binding.btTodos.setOnClickListener(View.OnClickListener {
+            mostrarTodos()
+
+        })
     }
 
     private fun mostrarTodos() {
-        val tvResults = binding.tvSearch
+
+        var tvResults = binding.tvSearch
         val docRef = db.collection("cities")
         docRef.get().addOnSuccessListener { result ->
             val stringBuilder = StringBuilder()
@@ -67,17 +76,18 @@ class MainActivity : AppCompatActivity() {
                 stringBuilder.append("\n") // Añadir una línea en blanco entre documentos
 
             }
-
+            var allDocument = stringBuilder.toString()
 
             tvResults.text = stringBuilder.toString()
+            val intent = Intent(this, AllDocumentActivity::class.java)
+            intent.putExtra("Extra", allDocument)
+            startActivity(intent)
 
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "Error getting documents: ", exception)
+            // Mostrar el mensaje de error en el TextView
+            tvResults.text = "Error al obtener documentos"
         }
-
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-                // Mostrar el mensaje de error en el TextView
-                tvResults.text = "Error al obtener documentos"
-            }
     }
 
 

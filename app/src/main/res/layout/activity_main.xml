@@ -3,60 +3,114 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/fondo">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/codigo"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="-6dp"/>
     <EditText
         android:id="@+id/etCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Introduce el código del producto" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/producto"
+        android:layout_marginBottom="-6dp"/>
     <EditText
         android:id="@+id/etProducto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Introduce el nombre del producto" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descripcion"
+        android:layout_marginBottom="-6dp"/>
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Introduce la descripcion del producto" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/precio"
+        android:layout_marginBottom="-6dp"/>
     <EditText
         android:id="@+id/etPrecio"
         android:layout_width="match_parent"
         android:inputType="number"
         android:layout_height="wrap_content"
         android:hint="Introduce el precio del producto" />
-
-    <Button
-        android:id="@+id/btSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/get" />
-    <Button
-        android:id="@+id/btAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add" />
-    <Button
-        android:id="@+id/btDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete" />
-    <Button
-        android:id="@+id/btUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/update" />
-    <Button
-        android:id="@+id/btTodos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODOS LOS PRODUCTOS" />
-
     <TextView
         android:id="@+id/tvSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/secundario"
+        android:gravity="center"
+        android:text="asdasdsd"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
         android:textSize="18sp"
-        android:paddingTop="16dp" />
+        android:layout_marginTop="4dp"
+        android:padding="4dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+
+
+
+    <Button
+        android:id="@+id/btSearch"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/get"
+        android:backgroundTint="@color/primario"/>
+    <Button
+        android:id="@+id/btAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:backgroundTint="@color/primario"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+    <Button
+        android:id="@+id/btDelete"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:backgroundTint="@color/primario"/>
+    <Button
+        android:id="@+id/btUpdate"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/update"
+        android:backgroundTint="@color/primario"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btTodos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TODOS LOS PRODUCTOS"
+        android:backgroundTint="@color/primario"/>
+
+
+
 </LinearLayout>

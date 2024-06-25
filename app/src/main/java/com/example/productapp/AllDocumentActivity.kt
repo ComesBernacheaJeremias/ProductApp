@@ -12,9 +12,9 @@ class AllDocumentActivity : AppCompatActivity() {
         binding = ActivityAllDocumentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var allProductos = binding.tvAllProductos
-        val Productos = intent.extras?.getString("Extra").orEmpty()
-        allProductos.text = Productos
+        val allProductos = binding.tvAllProductos
+        val productos = intent.extras?.getString("Extra").orEmpty()
+        allProductos.text = productos
 
     }
 

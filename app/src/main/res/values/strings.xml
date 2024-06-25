@@ -9,5 +9,17 @@
     <string name="codigo">Código</string>
     <string name="descripcion">Descripción</string>
     <string name="precio">Precio</string>
+    <string name="actualizar">¿Actualizar?</string>
+    <string name="btn_actualizar">Actualizar</string>
+    <string name="btn_volver">Volver</string>
+    <string name="btn_todos">TODOS LOS PRODUCTOS</string>
+
+    <!--editText-->
+    <string name="introducir_codigo">Introduce el código del producto</string>
+    <string name="introducir_producto">Introduce el nombre del producto</string>
+    <string name="introducir_descripcion">Introduce la descripción del producto</string>
+    <string name="introducir_precio">Introduce el precio del producto</string>
+
+
 
 </resources>

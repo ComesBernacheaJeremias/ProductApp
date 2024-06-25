@@ -9,11 +9,8 @@ import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.productapp.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -32,10 +29,7 @@ class MainActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
 
-
-
         initUI()
-
 
     }
 
@@ -64,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun mostrarTodos() {
 
-        var tvResults = binding.tvSearch
+        val tvResults = binding.tvSearch
         val docRef = db.collection("cities")
         docRef.get().addOnSuccessListener { result ->
             val stringBuilder = StringBuilder()
@@ -76,9 +70,8 @@ class MainActivity : AppCompatActivity() {
                 stringBuilder.append("\n") // Añadir una línea en blanco entre documentos
 
             }
-            var allDocument = stringBuilder.toString()
+            val allDocument = stringBuilder.toString()
 
-            tvResults.text = stringBuilder.toString()
             val intent = Intent(this, AllDocumentActivity::class.java)
             intent.putExtra("Extra", allDocument)
             startActivity(intent)
@@ -155,7 +148,6 @@ class MainActivity : AppCompatActivity() {
                 Log.i("corchometro", "DocumentSnapshot data: ${document.data}")
 
                 showData(formattedData.toString(), etCodigo.toString())
-                binding.tvSearch.text = formattedData.toString()
             } else {
                 binding.tvSearch.text = "Codigo NO encontrado. Pruebe con otro."
             }
@@ -182,7 +174,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateData() {
-        val etCodigo = binding.etCodigo
         val update = binding.etPrecio
         val precioUpdate = update.text.toString().toDoubleOrNull()
         val documentRef = db.collection("cities")
@@ -224,7 +215,7 @@ class MainActivity : AppCompatActivity() {
                     }
             } else {
                 binding.tvSearch.text = "No se actualizaron los precios"
-                //binding.etCodigo.text.clear()}
+
 
 
             }
@@ -262,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         val docRef = db.collection("cities").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
-                // docRef.delete()
+
                 Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
 
                 showDelete(etCodigo.toString()) { eleccion ->

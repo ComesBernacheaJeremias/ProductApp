@@ -85,11 +85,13 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/delete"
+        android:layout_marginEnd="2dp"
         android:backgroundTint="@color/primario"/>
     <Button
         android:id="@+id/btUpdate"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:layout_marginStart="2dp"
         android:layout_height="wrap_content"
         android:text="@string/update"
         android:backgroundTint="@color/primario"/>

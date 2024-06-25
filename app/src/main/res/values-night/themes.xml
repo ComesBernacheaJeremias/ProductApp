@@ -3,6 +3,19 @@
     <style name="Base.Theme.ProductApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
         <item name="android:statusBarColor">@color/primario</item>
+    </style>
+    <style name="Theme.ProductApp" parent="Base.Theme.ProductApp">
+        <item name="android:statusBarColor">@color/primario</item>
+        <item name="backgroundColor">@color/fondo</item>
+        <item name="colorPrimary">@color/primario</item>
+        <item name="colorPrimaryVariant">@color/secundario</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/black</item>
+
+
+
     </style>
 </resources>

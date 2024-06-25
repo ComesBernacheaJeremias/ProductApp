@@ -8,10 +8,13 @@
     <style name="Theme.ProductApp" parent="Base.Theme.ProductApp">
         <item name="android:statusBarColor">@color/primario</item>
         <item name="backgroundColor">@color/fondo</item>
+        <item name="colorPrimary">@color/primario</item>
+        <item name="colorPrimaryVariant">@color/secundario</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/black</item>
 
-    </style>
-    <style name="SplashTheme" parent="Theme.ProductApp">
-        <item name="android:windowBackground">@color/fondo</item>
+
 
     </style>
 </resources>

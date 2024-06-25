@@ -8,6 +8,7 @@ import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
@@ -158,14 +159,14 @@ class MainActivity : AppCompatActivity() {
     private fun showData(formattedData: String, etCodigo: String) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_add)
-        val tvResolt:TextView = dialog.findViewById(R.id.tvResolt)
-        val tvResoltTitle:TextView = dialog.findViewById(R.id.tvResoltTitle)
+        val tvResolt: TextView = dialog.findViewById(R.id.tvResolt)
+        val tvResoltTitle: TextView = dialog.findViewById(R.id.tvResoltTitle)
         val btnBack: Button = dialog.findViewById(R.id.btnBack)
         tvResolt.text = formattedData
         tvResoltTitle.text = etCodigo
 
         dialog.show()
-        btnBack.setOnClickListener{dialog.hide()}
+        btnBack.setOnClickListener { dialog.hide() }
 
     }
 
@@ -219,21 +220,31 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteData() {
-        val etCodigo = binding.etCodigo
-        if (etCodigo.text.isNullOrEmpty()) {
+        val etCodigo = binding.etCodigo.text
+        if (etCodigo.isNullOrEmpty()) {
             binding.tvSearch.text = "Por favor, ingrese un Codigo"
             return
         }
-        val docRef = db.collection("cities").document("${etCodigo.text}")
+        val docRef = db.collection("cities").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
-                docRef.delete()
+                // docRef.delete()
                 Log.i("corchometro", "DocumentSnapshot successfully deleted! SI Se borr")
-                binding.tvSearch.text = "Se ELIMINO el producto correctamente"
-                binding.etCodigo.text.clear()
+
+                showDelete(etCodigo.toString()) { eleccion ->
+                    if (eleccion) {
+                        docRef.delete()
+                        binding.tvSearch.text = "Se ELIMINO el producto correctamente"
+                        binding.etCodigo.text.clear()
+
+                    } else {
+                        binding.tvSearch.text = "No se elimino el producto"
+
+                    }
+                }
 
 
-            }else{
+            } else {
                 binding.tvSearch.text = "No se encontro el codigo."
             }
         }
@@ -241,6 +252,36 @@ class MainActivity : AppCompatActivity() {
                 Log.i("corchometro", "No p99ude borrar")
                 binding.tvSearch.text = "No se pudo eliminar el producto. Verifique los datos"
             }
+    }
+
+    private fun showDelete(etCodigo: String, callback: (Boolean) -> Unit) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_sure)
+
+
+        val btnYes: Button = dialog.findViewById(R.id.btnYes)
+        val btnNo: Button = dialog.findViewById(R.id.btnNo)
+        val tvSureText: TextView = dialog.findViewById(R.id.tvSureText)
+
+        //var eleccion = false
+
+
+        tvSureText.text = "Esta por eliminar $etCodigo ¿Esta seguro?"
+
+        dialog.show()
+        btnYes.setOnClickListener {
+            callback(true)
+            dialog.hide()
+        }
+
+
+        btnNo.setOnClickListener {
+            callback(false)
+            dialog.hide()
+
+        }
+
+
     }
 }
 

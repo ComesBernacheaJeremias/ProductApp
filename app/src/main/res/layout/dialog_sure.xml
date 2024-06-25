@@ -4,39 +4,52 @@
     android:layout_height="wrap_content"
     android:background="#333333"
     android:orientation="vertical"
-    android:padding="16dp"
-    >
+    android:padding="16dp">
+
+
     <TextView
         android:id="@+id/tvSureText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        android:hint="Estas Seguro de eliminar??"
-        android:textSize="25dp"
+        android:hint="¿Estas seguro de eliminar?"
         android:textColor="@color/white"
-        android:textColorHint="@color/white">
+        android:textColorHint="@color/white"
+        android:textSize="25dp">
 
     </TextView>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnYes"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:backgroundTint="#444444"
-        android:text="VOLVER"
-        android:layout_marginTop="4dp">
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#8A2A2A"
+            android:text="ELIMINAR">
 
-    </Button>
-    <Button
-        android:id="@+id/btnNo"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:backgroundTint="#444444"
-        android:text="VOLVER"
-        android:layout_marginTop="4dp">
+        </Button>
 
-    </Button>
+        <Button
+            android:id="@+id/btnNo"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#444444"
+            android:text="VOLVER">
 
-
+        </Button>
+    </LinearLayout>
 </LinearLayout>
+
+
+

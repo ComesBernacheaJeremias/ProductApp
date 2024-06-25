@@ -189,32 +189,56 @@ class MainActivity : AppCompatActivity() {
             binding.tvSearch.text = "Por favor ingrese un porcentaje válido"
             return
         }
+        showUpdate() { eleccion ->
+            if (eleccion) {
+                documentRef.get()
+                    .addOnSuccessListener { result ->
 
+                        for (document in result) {
+                            val precioActual = document.getDouble("Precio")
+                            val documentRef = document.reference
+                            if (precioActual != null) {
 
-        documentRef.get()
-            .addOnSuccessListener { result ->
-
-                for (document in result) {
-                    val precioActual = document.getDouble("Precio")
-                    val documentRef = document.reference
-                    if (precioActual != null) {
-                        val incremento = precioActual * (precioUpdate / 100)
-                        val nuevoPrecio = precioActual + incremento
-                        documentRef.update("Precio", nuevoPrecio)
-                        Log.i(
-                            "corchometro",
-                            "quiero que muestre ${update.text} que es el precio y ${nuevoPrecio}"
-                        )
+                                val incremento = precioActual * (precioUpdate / 100)
+                                val nuevoPrecio = precioActual + incremento
+                                documentRef.update("Precio", nuevoPrecio)
+                            }
+                        }
+                    }.addOnSuccessListener {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!")
+                        binding.tvSearch.text = "Precios Actualizados"
+                        binding.etPrecio.text.clear()
+                    }.addOnFailureListener { e ->
+                        Log.w(TAG, "Error updating document", e)
+                        binding.tvSearch.text = "Error al actualizar el precio"
                     }
-                }
-            }.addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully updated!")
-                binding.tvSearch.text = "Precios Actualizados"
-                binding.etCodigo.text.clear()
-            }.addOnFailureListener { e ->
-                Log.w(TAG, "Error updating document", e)
-                binding.tvSearch.text = "Error al actualizar el precio"
+            } else {
+                binding.tvSearch.text = "No se actualizaron los precios"
+                //binding.etCodigo.text.clear()}
+
+
             }
+        }
+    }
+
+    private fun showUpdate(callback: (Boolean) -> Unit) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_update)
+        val btnUpdate: Button = dialog.findViewById(R.id.btnUpdate)
+        val btnBack: Button = dialog.findViewById(R.id.btnBack)
+
+
+        dialog.show()
+        btnUpdate.setOnClickListener {
+            callback(true)
+            dialog.hide()
+        }
+
+
+        btnBack.setOnClickListener {
+            callback(false)
+            dialog.hide()
+        }
     }
 
 
@@ -249,7 +273,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
             .addOnFailureListener { exception ->
-                Log.i("corchometro", "No p99ude borrar")
+                Log.i("corchometro", "No pude borrar")
                 binding.tvSearch.text = "No se pudo eliminar el producto. Verifique los datos"
             }
     }
@@ -280,8 +304,8 @@ class MainActivity : AppCompatActivity() {
             dialog.hide()
 
         }
-
-
     }
 }
+
+
 

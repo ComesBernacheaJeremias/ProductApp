@@ -7,18 +7,16 @@
     android:padding="16dp">
 
 
-
     <TextView
         android:id="@+id/tvUpdateTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:hint="@string/actualizar"
         android:textColorHint="@color/white"
-        android:textSize="25sp"
-        android:gravity="center">
+        android:textSize="25sp">
 
     </TextView>
-
 
 
     <LinearLayout
@@ -36,8 +34,9 @@
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:backgroundTint="#8A2A2A"
+            android:text="@string/btn_actualizar"
             android:textAllCaps="true"
-            android:text="@string/btn_actualizar">
+            android:textColor="@color/white">
 
         </Button>
 
@@ -49,7 +48,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/primario"
             android:text="@string/btn_volver"
-            android:textAllCaps="true">
+            android:textAllCaps="true"
+            android:textColor="@color/white">
 
         </Button>
     </LinearLayout>

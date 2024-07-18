@@ -2,108 +2,134 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondo"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/fondo">
+    android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/codigo"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="-6dp"/>
+        android:layout_marginBottom="-6dp"
+        android:text="@string/codigo"
+        android:textColor="@color/black" />
+
     <EditText
         android:id="@+id/etCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/introducir_codigo"
         android:inputType="number"
-        android:hint="@string/introducir_codigo" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/texto_secundario" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="-6dp"
         android:text="@string/producto"
-        android:layout_marginBottom="-6dp"/>
+        android:textColor="@color/black" />
+
     <EditText
         android:id="@+id/etProducto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/introducir_producto" />
+        android:hint="@string/introducir_producto"
+        android:textColor="@color/black"
+        android:textColorHint="@color/texto_secundario" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="-6dp"
         android:text="@string/descripcion"
-        android:layout_marginBottom="-6dp"/>
+        android:textColor="@color/black" />
+
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/introducir_descripcion" />
+        android:hint="@string/introducir_descripcion"
+        android:textColor="@color/black"
+        android:textColorHint="@color/texto_secundario" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="-6dp"
         android:text="@string/precio"
-        android:layout_marginBottom="-6dp"/>
+        android:textColor="@color/black" />
+
     <EditText
         android:id="@+id/etPrecio"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/introducir_precio"
         android:inputType="number"
-        android:layout_height="wrap_content"
-        android:hint="@string/introducir_precio" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/texto_secundario" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:orientation="vertical">
 
 
+        <Button
+            android:id="@+id/btSearch"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/primario"
+            android:text="@string/get"
+            android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/btSearch"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="@string/get"
-        android:backgroundTint="@color/primario"/>
-    <Button
-        android:id="@+id/btAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:backgroundTint="@color/primario"/>
-</LinearLayout>
+        <Button
+            android:id="@+id/btAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primario"
+            android:text="@string/add"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
-    <Button
-        android:id="@+id/btDelete"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="@string/delete"
-        android:layout_marginEnd="2dp"
-        android:backgroundTint="@color/primario"/>
-    <Button
-        android:id="@+id/btUpdate"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_marginStart="2dp"
-        android:layout_height="wrap_content"
-        android:text="@string/update"
-        android:backgroundTint="@color/primario"/>
+        <Button
+            android:id="@+id/btDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primario"
+            android:text="@string/delete"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btUpdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primario"
+            android:text="@string/update"
+            android:textColor="@color/white" />
     </LinearLayout>
+
     <Button
         android:id="@+id/btTodos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/primario"
         android:text="@string/btn_todos"
         android:textAllCaps="true"
-        android:backgroundTint="@color/primario"/>
-
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

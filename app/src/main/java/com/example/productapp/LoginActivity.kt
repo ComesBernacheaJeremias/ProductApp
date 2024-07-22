@@ -38,6 +38,22 @@ class LoginActivity : AppCompatActivity() {
             reload()
         }
     }
+    private fun initUI() {
+        val nombre = binding.correo.text.toString()
+        val contraseña = binding.contraseA.text.toString()
+        binding.Login.setOnClickListener {
+
+            if (nombre.isNotEmpty()) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("Extra", nombre)
+                startActivity(intent)
+            }
+        }
+        binding.Registrar.setOnClickListener{
+            //aca deberia ser: llevar a :
+            createAccount()
+        }
+    }
 
     //Crear Usuario Nuevo
     private fun createAccount(email: String, password: String) {
@@ -94,14 +110,5 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun initUI() {
-        binding.Login.setOnClickListener {
-            val nombre = binding.correo.text.toString()
-            if (nombre.isNotEmpty()) {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("Extra", nombre)
-                startActivity(intent)
-            }
-        }
-    }
+
 }

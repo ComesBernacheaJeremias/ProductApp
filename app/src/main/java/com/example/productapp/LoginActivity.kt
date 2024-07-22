@@ -50,8 +50,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         binding.Registrar.setOnClickListener{
-            //aca deberia ser: llevar a :
-            createAccount()
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

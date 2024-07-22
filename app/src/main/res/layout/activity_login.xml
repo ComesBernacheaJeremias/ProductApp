@@ -45,12 +45,12 @@
 
         <androidx.appcompat.widget.AppCompatEditText
 
-            android:id="@+id/aceUsuario"
+            android:id="@+id/correo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="Escribe el usuario"
+            android:hint="Escribe tu correo"
             android:maxLines="1"
             android:singleLine="true">
 

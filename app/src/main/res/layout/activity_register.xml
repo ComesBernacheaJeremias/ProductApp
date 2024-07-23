@@ -10,7 +10,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/registerMail"
+        android:id="@+id/registerEmail"
         android:hint="Correo"/>
     <EditText
         android:layout_width="match_parent"

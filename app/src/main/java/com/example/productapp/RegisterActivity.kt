@@ -1,17 +1,16 @@
 package com.example.productapp
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.productapp.databinding.ActivityLoginBinding
 import com.example.productapp.databinding.ActivityRegisterBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
 class RegisterActivity : AppCompatActivity() {
@@ -24,7 +23,18 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
 
-    createAccount()
+
+        initUI()
+        Log.i("Login", "entro en EL REGISTER")
+
+    }
+    private fun initUI(){
+        val email = binding.registerEmail.text.toString()
+        val password = binding.registerContraseA.text.toString()
+        val confirm = binding.registerConfirmarContraseA.text.toString()
+
+
+        createAccount(email, password)
     }
 
     private fun createAccount(email: String, password: String) {
@@ -48,6 +58,10 @@ class RegisterActivity : AppCompatActivity() {
                     updateUI(null)
                 }
             }
+    }
+    private fun updateUI(user: FirebaseUser?) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
 }

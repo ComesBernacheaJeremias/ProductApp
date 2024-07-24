@@ -29,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
 
+
+
         initUI()
 
     }
@@ -42,10 +44,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     private fun initUI() {
-        val email = binding.correo.text.toString()
-        val passwords = binding.contraseA.text.toString()
         binding.Login.setOnClickListener {
+            val email = binding.correo.text.toString()
+            val passwords = binding.contraseA.text.toString()
+
+            if (email.isNotEmpty() && passwords.isNotEmpty()){
             signIn(email, passwords)
+                Log.i("Login", "Estan completos los campos")
+            }else{
+                Toast.makeText(applicationContext, "Introduzca correo y contraseña", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.Registrar.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)
@@ -58,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
     //Acceso usuario existente
     private fun signIn(email: String, password: String) {
         // [START sign_in_with_email]
+        Log.i("Login", "Entro en la funcion singnIn, veremos")
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {

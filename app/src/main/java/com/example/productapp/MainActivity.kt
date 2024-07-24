@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityMainBinding
+    private var colectionName:String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
 
+        // Obtener el intent y los datos
+        val intent = intent
+        val usuario = intent.getStringExtra("EmailColeccion")
+        colectionName = usuario
+
 
         initUI()
 
@@ -37,6 +43,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initUI() {
+        val user = colectionName
+        Log.i("Login", "entro el ${user}")
         binding.btAdd.setOnClickListener(View.OnClickListener {
             addData()
         })
@@ -85,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun addData() {
+
         val etCodigo = binding.etCodigo
         val etPrecio = binding.etPrecio
        // etPrecio.inputType = InputType.TYPE_CLASS_NUMBER

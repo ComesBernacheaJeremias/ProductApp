@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -89,7 +90,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-
+        val email = binding.correo.text.toString()
+        if (user != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("EmailColeccion", email)
+            startActivity(intent)
+        }else {
+            Toast.makeText(
+                baseContext,
+                "No existe el Usuario.",
+                Toast.LENGTH_SHORT,
+            ).show()
+        }
     }
     private fun reload(){
 

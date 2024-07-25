@@ -18,6 +18,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+    private var colectionName:String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
             val confirm = binding.registerConfirmarContraseA.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 createAccount(email, password)
-                Log.i("Login", "NO esta bacio")
+                Log.i("Login", "NO esta bacio, el correo es ${email}")
             }else{
                 Toast.makeText(applicationContext, "Introduzca correo y contraseña", Toast.LENGTH_SHORT).show()
                 Log.i("Login", "Introducir Correo y Contraseña")
@@ -59,13 +60,15 @@ class RegisterActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(ContentValues.TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    colectionName = email
                     updateUI(user)
                     Toast.makeText(applicationContext, "Se agrego el usuario correctamente", Toast.LENGTH_SHORT).show()
-                    Log.i("Login", "se agrego el usuario nashe")
+                    Log.i("Login", "se agrego el usuario nashe ${user}")
+                    Log.i("Login", "muestra coleccionName ${colectionName}")
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                    Log.i("Login", "se agrego el usuario nashe")
+                    Log.i("Login", "No se agrego el usuario")
                     Toast.makeText(
                         baseContext,
                         "Authentication failed.",
@@ -79,6 +82,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("EmailColeccion", colectionName)
         startActivity(intent)
     }
 

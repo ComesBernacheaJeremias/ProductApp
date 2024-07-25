@@ -14,6 +14,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -33,8 +35,12 @@ class MainActivity : AppCompatActivity() {
 
         // Obtener el intent y los datos
         val intent = intent
-        val usuario = intent.getStringExtra("EmailColeccion")
-        colectionName = usuario
+        val newUsuario = intent.getStringExtra("EmailColeccion")
+        colectionName = newUsuario
+        val loginUser = intent.getStringExtra("LoginEmailColeccion")
+        if (loginUser !=null){
+            colectionName = loginUser
+        }
 
 
         initUI()
@@ -43,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initUI() {
+
         val user = colectionName
         Log.i("Login", "entro el ${user}")
         binding.btAdd.setOnClickListener(View.OnClickListener {
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mostrarTodos() {
-        val docRef = db.collection("productos")
+        val docRef = db.collection("${colectionName}")
         docRef.get().addOnSuccessListener { result ->
             val stringBuilder = StringBuilder()
             for (document in result) {
@@ -113,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             "Descripcion" to etDescription.text.toString()
 
         )
-        val docRef = db.collection("productos").document("${etCodigo.text}")
+        val docRef = db.collection("${colectionName}").document("${etCodigo.text}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
                 //binding.tvSearch.text =
@@ -152,7 +159,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
             return
         }
-        val docRef = db.collection("productos").document("${etCodigo}")
+        val docRef = db.collection("${colectionName}").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
                 val data = document.data
@@ -196,7 +203,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateData() {
         val update = binding.etPrecio
         val precioUpdate = update.text.toString().toDoubleOrNull()
-        val documentRef = db.collection("productos")
+        val documentRef = db.collection("${colectionName}")
 
         Log.i("corcho", "ACTUALIZAR se apreto el boton")
 
@@ -283,7 +290,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Ingrese un codigo", Toast.LENGTH_SHORT).show()
             return
         }
-        val docRef = db.collection("productos").document("${etCodigo}")
+        val docRef = db.collection("${colectionName}").document("${etCodigo}")
         docRef.get().addOnSuccessListener { document ->
             if (document != null && document.data != null) {
 

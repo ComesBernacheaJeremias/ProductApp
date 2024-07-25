@@ -41,13 +41,16 @@ class RegisterActivity : AppCompatActivity() {
             val email = binding.registerEmail.text.toString()
             val password = binding.registerContraseA.text.toString()
             val confirm = binding.registerConfirmarContraseA.text.toString()
-            if (email.isNotEmpty() && password.isNotEmpty()) {
+            if (email.isEmpty()){
+                Toast.makeText(applicationContext, "Introduzca un correo", Toast.LENGTH_SHORT).show()
+
+            }else if (password.isEmpty()) {
+            Toast.makeText(applicationContext, "Introduzca contraseña", Toast.LENGTH_SHORT).show()
+            }else{
                 createAccount(email, password)
                 Log.i("Login", "NO esta bacio, el correo es ${email}")
-            }else{
-                Toast.makeText(applicationContext, "Introduzca correo y contraseña", Toast.LENGTH_SHORT).show()
-                Log.i("Login", "Introducir Correo y Contraseña")
             }
+
 
         }
     }
@@ -75,15 +78,19 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT,
                     ).show()
                     updateUI(null)
-                    Toast.makeText(applicationContext, "No se pudo agregar el usuario correctamente", Toast.LENGTH_SHORT).show()
+
                 }
             }
     }
 
     private fun updateUI(user: FirebaseUser?) {
+        if(user != null){
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("EmailColeccion", colectionName)
         startActivity(intent)
+        }else{
+            Toast.makeText(applicationContext, "No se pudo agregar el usuario correctamente", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

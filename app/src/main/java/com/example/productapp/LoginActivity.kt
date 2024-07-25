@@ -49,14 +49,19 @@ class LoginActivity : AppCompatActivity() {
     private fun initUI() {
         binding.Login.setOnClickListener {
             val email = binding.correo.text.toString()
-            val passwords = binding.contraseA.text.toString()
+            val password = binding.contraseA.text.toString()
 
-            if (email.isNotEmpty() && passwords.isNotEmpty()){
-            signIn(email, passwords)
-                Log.i("Login", "Estan completos los campos")
+            if (email.isEmpty()){
+                Toast.makeText(applicationContext, "Introduzca un correo", Toast.LENGTH_SHORT).show()
+
+            }else if (password.isEmpty()) {
+                Toast.makeText(applicationContext, "Introduzca una contraseña", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(applicationContext, "Introduzca correo y contraseña", Toast.LENGTH_SHORT).show()
+                signIn(email, password)
+                Log.i("Login", "NO esta bacio, el correo es ${email}")
             }
+
+
         }
         binding.Registrar.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)

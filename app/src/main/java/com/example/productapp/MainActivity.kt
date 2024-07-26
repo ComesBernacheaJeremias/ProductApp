@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -34,12 +35,20 @@ class MainActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         // Obtener el intent y los datos
-        val intent = intent
-        val newUsuario = intent.getStringExtra("EmailColeccion")
-        colectionName = newUsuario
-        val loginUser = intent.getStringExtra("LoginEmailColeccion")
-        if (loginUser !=null){
-            colectionName = loginUser
+
+
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val userId = user.uid
+            val userEmail = user.email
+
+            colectionName = userEmail
+
+
+            Log.i("Login", "el usuario esss ${userEmail}")
+            Log.i("Login", "el id es ${userId}")
+            // Otros detalles del usuario
         }
 
 

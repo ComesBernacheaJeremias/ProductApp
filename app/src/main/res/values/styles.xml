@@ -8,6 +8,7 @@
         <item name="android:padding">12dp</item>
         <item name="android:background">@drawable/backgroundedittext</item>
         <item name="android:layout_marginTop">4dp</item>
+        <item name="android:maxLength">50</item>
 
     </style>
     <style name="styleBtnBack">

@@ -20,5 +20,19 @@
     <string name="introducir_descripcion">Introduce la descripción del producto</string>
     <string name="introducir_precio">Introduce el precio del producto</string>
 
+    <!--Register-->
+    <string name="correoRegister">Correo</string>
+    <string name="contraseñaRegister">Contraseña</string>
+    <string name="contraseñaConfirmRegister">Confirmar contraseña</string>
+
+    <string name="correoRegisterHint">Introduce tu correo</string>
+    <string name="contraseñaRegisterHint">Introduce una contraseña</string>
+    <string name="contraseñaConfirmRegisterHint">Confirme la contraseña</string>
+
+
+    <!--Login-->
+    <string name="contraseñaLogin">Contraseña</string>
+    <string name="correoLogin">Correro</string>
+
 
 </resources>

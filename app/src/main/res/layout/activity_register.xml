@@ -1,36 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
     tools:context=".RegisterActivity"
-    android:orientation="vertical">
-    <EditText
+    android:background="@color/fondo">
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="-6dp"
+        android:text="@string/correoRegister"
+        android:textColor="@color/black" />
+
+    <EditText
         android:id="@+id/registerEmail"
-        android:hint="Correo"/>
-    <EditText
-        android:layout_width="match_parent"
+        style="@style/editText"
+        android:hint="@string/correoRegisterHint"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/registerUsuario"
-        android:hint="Usuario"/>
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="-6dp"
+        android:text="@string/contraseñaRegister"
+        android:textColor="@color/black" />
+
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/registerContraseña"
-        android:hint="Contraseña"/>
-    <EditText
-        android:layout_width="match_parent"
+        style="@style/editText"
+        android:hint="@string/contraseñaRegisterHint"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="-6dp"
+        android:text="@string/contraseñaConfirmRegister"
+        android:textColor="@color/black" />
+    <EditText
         android:id="@+id/registerConfirmarContraseña"
-        android:hint="Confirmar contraseña"/>
+        style="@style/editText"
+        android:hint="@string/contraseñaConfirmRegisterHint"
+        android:inputType="textPassword"/>
+
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Agregar"/>
+        android:textColorHint="@color/white"
+        android:hint="Agregar" />
 
 </LinearLayout>

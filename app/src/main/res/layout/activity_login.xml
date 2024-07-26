@@ -46,11 +46,8 @@
         <androidx.appcompat.widget.AppCompatEditText
 
             android:id="@+id/correo"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Escribe tu correo"
+            style="@style/editText"
+            android:hint="@string/correoLogin"
             android:maxLines="1"
             android:singleLine="true">
 
@@ -82,13 +79,11 @@
         <androidx.appcompat.widget.AppCompatEditText
 
             android:id="@+id/contraseña"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Escribe tu contraseña"
+            style="@style/editText"
+            android:hint="@string/contraseñaLogin"
             android:maxLines="1"
-            android:singleLine="true">
+            android:singleLine="true"
+            android:inputType="textPassword">
 
         </androidx.appcompat.widget.AppCompatEditText>
     </LinearLayout>

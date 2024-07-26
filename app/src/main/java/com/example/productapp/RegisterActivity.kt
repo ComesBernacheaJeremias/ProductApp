@@ -34,8 +34,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        Log.i("Login", "entro en EL REGISTER 222")
-
+        binding.btnBack.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnAdd.setOnClickListener {
             val email = binding.registerEmail.text.toString()
@@ -46,6 +48,10 @@ class RegisterActivity : AppCompatActivity() {
 
             }else if (password.isEmpty()) {
             Toast.makeText(applicationContext, "Introduzca contraseña", Toast.LENGTH_SHORT).show()
+            }else if (confirm.isEmpty()) {
+            Toast.makeText(applicationContext, "Confirme la contraseña", Toast.LENGTH_SHORT).show()
+            }else if (password != confirm) {
+            Toast.makeText(applicationContext, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
             }else{
                 createAccount(email, password)
                 Log.i("Login", "NO esta bacio, el correo es ${email}")

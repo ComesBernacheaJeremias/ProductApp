@@ -9,6 +9,15 @@
         <item name="android:background">@drawable/backgroundedittext</item>
         <item name="android:layout_marginTop">4dp</item>
 
+    </style>
+    <style name="styleBtnBack">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginStart">-12dp</item>
+        <item name="android:layout_marginTop">-12dp</item>
+        <item name="android:src">@drawable/ic_back</item>
+        <item name="android:tint">@color/primario</item>
 
 
     </style>

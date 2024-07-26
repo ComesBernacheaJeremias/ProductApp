@@ -29,10 +29,12 @@
     <string name="contraseñaRegisterHint">Introduce una contraseña</string>
     <string name="contraseñaConfirmRegisterHint">Confirme la contraseña</string>
 
+    <string name="reister">Registrar</string>
+
 
     <!--Login-->
     <string name="contraseñaLogin">Contraseña</string>
-    <string name="correoLogin">Correro</string>
+    <string name="correoLogin">Correo</string>
 
 
 </resources>

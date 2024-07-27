@@ -46,7 +46,8 @@
         android:id="@+id/registerContraseña"
         style="@style/editText"
         android:hint="@string/contraseñaRegisterHint"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:maxLength="16"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
         android:id="@+id/registerConfirmarContraseña"
         style="@style/editText"
         android:hint="@string/contraseñaConfirmRegisterHint"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:maxLength="16"/>
 
     <Button
         android:id="@+id/btnAdd"

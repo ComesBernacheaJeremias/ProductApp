@@ -83,7 +83,8 @@
             android:hint="@string/contraseñaLogin"
             android:maxLines="1"
             android:singleLine="true"
-            android:inputType="textPassword">
+            android:inputType="textPassword"
+            android:maxLength="16">
 
         </androidx.appcompat.widget.AppCompatEditText>
     </LinearLayout>

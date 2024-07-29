@@ -5,6 +5,15 @@
     android:background="@color/fondo"
     android:orientation="vertical"
     android:padding="16dp">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/primario"/>
+    <ImageView
+        android:id="@+id/btnBack"
+        style="@style/styleBtnBack"
+        android:layout_gravity="end"/>
 
     <TextView
         android:layout_width="wrap_content"

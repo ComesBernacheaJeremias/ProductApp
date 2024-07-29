@@ -8,10 +8,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.InputType
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
@@ -30,6 +33,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        
+
+        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        
+        
 
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
@@ -55,6 +65,22 @@ class MainActivity : AppCompatActivity() {
         initUI()
 
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_settings, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                // Acción para "Settings"
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 
 
     private fun initUI() {

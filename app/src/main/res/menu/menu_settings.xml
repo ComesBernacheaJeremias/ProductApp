@@ -4,9 +4,16 @@
     xmlns:style="http://schemas.android.com/tools">
     <item
         android:checked="false"
-        android:id="@+id/exit"
-        android:title="Salir"
+        android:id="@+id/help"
+        android:title="Ayuda"
         android:orderInCategory="100"
         app:showAsAction="never"/>
+    <item
+        android:checked="false"
+        android:id="@+id/exit"
+        android:title="Salir"
+        android:orderInCategory="101"
+        app:showAsAction="never"/>
+
 
 </menu>

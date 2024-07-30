@@ -35,6 +35,18 @@
     <!--Login-->
     <string name="contraseñaLogin">Contraseña</string>
     <string name="correoLogin">Correo</string>
+    <!--Ayuda-->
+    <string name="strDescription">Gestiona el precio de tus productos de forma sencilla desde tu celular</string>
+    <string name="strAgregar">Completar los campos requeridos y luego presionar el botón “AGREGAR”.</string>
+    <string name="strBuscar">Completar la casilla de “Código” y presionar el botón “BUSCAR”.</string>
+    <string name="strEliminar">Completar la casilla de “Código”, presionar el botón “ELIMINAR” y confirmar la acción.</string>
+    <string name="strActualizar">En la casilla de “Precio” introducir el porcentaje que desea aumentar en los productos y presionar el botón “ACTUALIZAR”. Tener en cuenta:
+-	Todos los productos se actualizarán;
+-	Se aumentará el porcentaje ingresado.
+-	Ejemplo: si en la casilla de precio introduzco el número 50 y presiono el botón “ACTUALIZAR”, el precio de TODOS LOS PRODUCTOS se incrementará un 50%.
+</string>
+    <string name="strActualizarUno">Para actualizar el precio de un solo producto deberá eliminarlo y volverlo a agregar con el precio que corresponda.</string>
+    <string name="strTodosLosProductos">Presionar el botón “TODOS LOS PRODUCTOS”. Se mostrarán todos los productos según el momento en que fueron agregados.</string>
 
 
 </resources>

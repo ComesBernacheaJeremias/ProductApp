@@ -86,9 +86,18 @@ class MainActivity : AppCompatActivity() {
 
                 true
             }
+            R.id.help -> {
+                goHelp()
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun goHelp() {
+        val intent = Intent(this, HelpActivity::class.java)
+        startActivity(intent)
     }
 
     private fun exitApp() {

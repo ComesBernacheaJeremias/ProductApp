@@ -21,10 +21,9 @@
 
 
     </style>
-    <style name="toolBar">
-        <item name="backgroundColor">@color/fondo</item>
-        <item name="android:textColor">@color/black</item>
-
+    <style name="MenuItemStyle">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:background">@color/red</item>
     </style>
 
 

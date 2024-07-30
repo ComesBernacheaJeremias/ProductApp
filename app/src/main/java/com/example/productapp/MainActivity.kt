@@ -1,6 +1,7 @@
 package com.example.productapp
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -71,16 +72,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection.
         return when (item.itemId) {
-            R.id.action_settings -> {
-                // Acción para "Settings"
+            R.id.exit -> {
+                AlertDialog.Builder(this)
+                    .setTitle("Confirmación")
+                    .setMessage("¿Estás seguro?")
+                    .setPositiveButton("Sí") { dialog, which ->
+                        exitApp()
+                    }
+                    .setNegativeButton("No") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun exitApp() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+        Toast.makeText(applicationContext, "Sesión cerrada", Toast.LENGTH_SHORT).show()
 
+    }
 
 
     private fun initUI() {

@@ -27,26 +27,23 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityMainBinding
-    private var colectionName:String? = null
+    private var colectionName: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
-        
+
 
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
-        
-        
+
 
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
 
         // Obtener el intent y los datos
-
 
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -66,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         initUI()
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_settings, menu)
         return true
@@ -88,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -148,7 +147,8 @@ class MainActivity : AppCompatActivity() {
         }.addOnFailureListener { exception ->
             Log.d(TAG, "Error getting documents: ", exception)
             // Mostrar el mensaje de error en el TextView
-            Toast.makeText(applicationContext, "Error al obtener documentos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Error al obtener documentos", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -157,13 +157,14 @@ class MainActivity : AppCompatActivity() {
 
         val etCodigo = binding.etCodigo
         val etPrecio = binding.etPrecio
-       // etPrecio.inputType = InputType.TYPE_CLASS_NUMBER
+        // etPrecio.inputType = InputType.TYPE_CLASS_NUMBER
         val etProducto = binding.etProducto
         val etDescription = binding.etDescription
 
 
         if (etCodigo.text.isNullOrEmpty() || etPrecio.text.isNullOrEmpty() || etDescription.text.isNullOrEmpty() || etProducto.text.isNullOrEmpty()) {
-            Toast.makeText(applicationContext, "Complete todos los datos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Complete todos los datos", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
@@ -194,11 +195,19 @@ class MainActivity : AppCompatActivity() {
                         binding.etCodigo.text.clear()
                         binding.etPrecio.text.clear()
                         binding.etProducto.text.clear()
-                        Toast.makeText(applicationContext, "Se agrego el producto correctamente", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            applicationContext,
+                            "Se agrego el producto correctamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error writing document", e)
-                        Toast.makeText(applicationContext, "No se pudo agregar el producto. Verifique los datos", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            applicationContext,
+                            "No se pudo agregar el producto. Verifique los datos",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             }
         }

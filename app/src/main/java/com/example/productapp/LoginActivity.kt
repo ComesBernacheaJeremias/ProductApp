@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    private var Email:String? = null
+    private var Email: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,24 +46,27 @@ class LoginActivity : AppCompatActivity() {
             reload()
         }
     }
+
     private fun initUI() {
         binding.Login.setOnClickListener {
             val email = binding.correo.text.toString()
             val password = binding.contraseA.text.toString()
 
-            if (email.isEmpty()){
-                Toast.makeText(applicationContext, "Introduzca un correo", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty()) {
+                Toast.makeText(applicationContext, "Introduzca un correo", Toast.LENGTH_SHORT)
+                    .show()
 
-            }else if (password.isEmpty()) {
-                Toast.makeText(applicationContext, "Introduzca una contraseña", Toast.LENGTH_SHORT).show()
-            }else{
+            } else if (password.isEmpty()) {
+                Toast.makeText(applicationContext, "Introduzca una contraseña", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
                 signIn(email, password)
                 Log.i("Login", "NO esta bacio, el correo es ${email}")
             }
 
 
         }
-        binding.Registrar.setOnClickListener{
+        binding.Registrar.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             Log.i("Login", "se apreto el boton Registrar")
@@ -102,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("LoginEmailColeccion", Email)
             startActivity(intent)
-        }else {
+        } else {
             Toast.makeText(
                 baseContext,
                 "No existe el Usuario.",
@@ -110,10 +113,10 @@ class LoginActivity : AppCompatActivity() {
             ).show()
         }
     }
-    private fun reload(){
+
+    private fun reload() {
 
     }
-
 
 
 }

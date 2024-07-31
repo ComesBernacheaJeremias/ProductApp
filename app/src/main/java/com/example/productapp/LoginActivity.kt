@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    private var Email: String? = null
+    private var dataEmail: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                    Email = email
+                    dataEmail = email
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -103,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("LoginEmailColeccion", Email)
+            intent.putExtra("LoginEmailColeccion", dataEmail)
             startActivity(intent)
         } else {
             Toast.makeText(

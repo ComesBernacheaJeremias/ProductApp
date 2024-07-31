@@ -6,8 +6,6 @@ import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.text.InputType
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -15,12 +13,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productapp.databinding.ActivityMainBinding
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
 

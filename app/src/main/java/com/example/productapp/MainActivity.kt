@@ -237,6 +237,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("corchometro", "DocumentSnapshot data: ${document.data}")
 
                 showData(formattedData.toString(), etCodigo.toString())
+                etCodigo.clear()
             } else {
                 Toast.makeText(
                     applicationContext,

@@ -14,8 +14,7 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            style="@style/styleBtnBack"
-            android:layout_marginTop="4dp"/>
+            style="@style/styleBtnBack"/>
 
         <TextView
             android:layout_width="wrap_content"

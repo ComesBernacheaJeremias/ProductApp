@@ -22,14 +22,17 @@ class LoginActivity : AppCompatActivity() {
     private var dataEmail: String? = null
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = Firebase.auth
         db = FirebaseFirestore.getInstance()
+
+
 
 
 

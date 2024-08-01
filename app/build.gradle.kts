@@ -60,6 +60,7 @@ dependencies {
 
     //FireBase
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation ("com.firebaseui:firebase-ui-auth:8.0.0")
 
     //noinspection UseTomlInstead
     implementation("com.google.firebase:firebase-analytics")

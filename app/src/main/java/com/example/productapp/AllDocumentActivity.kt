@@ -1,5 +1,6 @@
 package com.example.productapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,13 @@ class AllDocumentActivity : AppCompatActivity() {
         allProductos.text = productos
 
         initUI()
+
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
 
     }
 

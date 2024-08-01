@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
                 true
             }
+
             R.id.help -> {
                 goHelp()
                 true
@@ -89,6 +90,12 @@ class MainActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        finishAffinity()
+
     }
 
     private fun goHelp() {
